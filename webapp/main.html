@@ -1,0 +1,41 @@
+<html>
+	<head>
+	<style>
+		.profPic{
+			border:10px solid;
+			border-radius:5px;
+			border-color:#ACACAC;
+		}
+		.hcon{
+			max-width: 600px;		
+		}
+		.title{
+		font-family: Garamond, serif;
+line-height: 1em;
+color: #fff9d6;
+font-weight:bold;
+font-size: 50px;
+text-shadow:0px 0px 0 rgb(223,223,223),1px 1px 0 rgb(202,202,202),2px 2px 0 rgb(180,180,180),3px 3px 0 rgb(158,158,158), 4px 4px 0 rgb(136,136,136),5px 5px 4px rgba(0,0,0,0.3),5px 5px 1px rgba(0,0,0,0.5),0px 0px 4px rgba(0,0,0,.2);
+		}
+	</style>
+	</head>
+
+	<body bgcolor="#000000">
+		<center>
+		<table>
+			<tr>
+				<td><img src="http://www.standup2cancer.org/_images/blog/twitter_logo.png" width=100/></td>
+				<td><font size=8 color="#FFFFFF" class="title"><b>Multunus Twitter Puzzle</b></font><br/><br/></td>
+			</tr>
+		<table>
+		<div class="hcon">
+			{%for profile in profiles%}
+				<a href="/handle?name={{profile.0}}" >
+					<img src="{{profile.1}}" alt="{{profile.0}}" class="profPic" width=75 height=75/>
+				</a>
+			{%endfor%}
+		</div>
+		</center>
+	</body>
+</html>
+

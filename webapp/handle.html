@@ -1,0 +1,28 @@
+<html>
+<head>
+<style>
+	img{
+		border:5px solid;
+		border-radius:80px;
+		border-color:#ffffff;
+	}
+	.hcon{
+		max-width: 600px;		
+	}
+</style>
+</head>
+<body bgcolor="#000000">
+
+	<center>
+	<img src ="{{profile.1}}" title="{{profile.0}}" width=80 />
+	<br><br>
+	<div class="hcon">
+	{% for follow in followers %}
+		<img src="{{follow.2}}" title="{{follow.0}},{{follow.1}}" width=80 height=80/>
+	{%endfor%}
+	</div>
+	<br/><a href="/" ><b><font color="#ffffff"> Back</font> </b></a>
+	
+	<center>
+</body>
+</html>

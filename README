@@ -1,0 +1,19 @@
+webapp:
+
+	It contain the Google App Engine(Python) module which is used similate the twitter puzzle . It works based on handle files stored in files folder , which is regularlly updated
+	 It works based on puzzle.py
+
+puzzle:
+
+	It contains modules used for generating handle files. 
+		puzzle.py fetch the userdetails . It will fetch "15" recent tweets of the user and will return a list of followers in order . 
+
+		filegen.py generate output file used by Google App engine. It calls puzzle.py's fetch() function to get the list of followers and then generate a file with the name of the user provided. 
+
+
+	to generate file==>
+	
+		python filegen.py username
+
+	It will create file in files folder
+

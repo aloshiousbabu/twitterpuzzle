@@ -1,0 +1,78 @@
+import sys
+import os
+from google.appengine.ext.webapp import template
+from google.appengine.api import users
+from google.appengine.ext import webapp
+from google.appengine.ext import db
+from google.appengine.ext.webapp.util import run_wsgi_app
+from google.appengine.dist import use_library
+use_library('django', '0.96')
+from os import environ
+import datetime
+import time
+
+"""Main page that loads multunuspuzzle.appspot.com/"""
+class MainPage(webapp.RequestHandler,db.Model):
+	def get(self):
+		try:
+			f=open("name.txt","r")
+			fileCon=f.read()
+			f.close()
+			fileCon=fileCon.split(";")
+			profileRes=[]
+			tempPro=[]
+			for fileC in fileCon:
+				temp=fileC.split(",")	
+				if temp[0] not in tempPro and temp[0]!="":
+					profileRes.append(temp)
+					tempPro.append(temp[0])
+x
+			"""Render main page """
+			path = os.path.join(os.path.dirname(__file__),'main.html')
+			self.response.out.write(template.render(path,{"profiles":profileRes}))	
+			
+		except:
+			path = os.path.join(os.path.dirname(__file__),'error.html')
+			self.response.out.write(template.render(path,{"error":"Unhandled Profile"}))	
+				
+			
+"""Handle class that load /handle with the corresponding handle details"""
+class HandlePage(webapp.RequestHandler,db.Model):
+	def get(self):
+		try:
+			name=self.request.get("name")
+			f=open("./files/"+str(name),"r")
+			fileCon=f.read()
+			f.close()
+			fileCon=fileCon.split("|")
+			profileName=fileCon[0].split(",")
+			profileName[1]=profileName[1].replace("_normal", "");
+			followers=fileCon[1].split(";")
+			followerRes=[]
+			tempPro=[]
+			for follower in followers:
+				temp=follower.split(",")	
+				temp[2]=temp[2].replace("_normal", "");
+				if temp[0] not in tempPro and temp[0]!="":
+					followerRes.append(temp)
+					tempPro.append(temp[0])
+				if len(tempPro)>10 :
+					break
+			"""Rendle handle page"""
+			path = os.path.join(os.path.dirname(__file__),'handle.html')
+			self.response.out.write(template.render(path,{"profile":profileName,"followers":followerRes}))	
+			
+
+		except:
+			"""Render Error page"""
+			path = os.path.join(os.path.dirname(__file__),'error.html')
+			self.response.out.write(template.render(path,{"error":"Unhandled Profile"}))
+	
+			
+application = webapp.WSGIApplication([('/', MainPage),('/handle', HandlePage)],debug=True)
+
+def main():
+    run_wsgi_app(application)
+
+if __name__ == "__main__":
+    main()
